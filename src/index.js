@@ -21,8 +21,12 @@ formRef.addEventListener('submit', handleSubmit);
 
 const renderGallery = images => {
   //   const { webformatURL, largeImageURL, tags, likes, views, comments, downloads } = data;
-
+  if (images.length === 0) {
+    galleryRef.innerHTML = '';
+    Notiflix.Notify.failure('There is no images found with that search request');
+  }
   const markupGallery = images
+
     .map(image => {
       const markup = `
         <a class="gallery-link" href="${image.largeImageURL}">

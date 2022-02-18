@@ -50,32 +50,14 @@ body {
   font-size: 13px;
   height: 100%;
 }
-.search-button:focus {
+.search-button:focus,
+.search-button:hover {
   outline: 0;
-  background: #222;
+  background: #6d90a0;
 }
 
 .screen-reader-text {
   position: absolute;
   top: -9999px;
   left: -9999px;
-}
-
-.load-more {
-  border: 0;
-  padding: 0.5rem;
-  border-radius: 8px;
-  position: absolute;
-  top: 0;
-  left: 100%;
-  transition: 0.2s;
-  background: #455a64;
-  color: white;
-  font-size: 13px;
-  width: 75px;
-  height: 100%;
-}
-.load-more:focus {
-  outline: 0;
-  background: #222;
 }
