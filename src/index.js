@@ -1,70 +1,71 @@
 import './sass/main.scss';
-import { fetchImages } from './js/api/fetchImages';
-import { createGalleryList } from './js/createGalleryList';
-import { Pagination } from './js/pagination';
-import imageCardTemplate from './js/galleryCard.hbs';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 import Notiflix from 'notiflix';
-// import debounce from 'lodash.debounce';
-
-// const DEBOUNCE_DELAY = 300;
+import { fetchImages } from './js/api/fetchImages';
+import imageCardTemplate from './js/galleryCard.hbs';
 
 const formRef = document.querySelector('#search-form');
 const galleryRef = document.querySelector('.gallery');
-const nextPageRef = document.querySelector('.load-more');
-// formRef.addEventListener('input', debounce(handleInput, DEBOUNCE_DELAY));
+const loadMoreRef = document.querySelector('.load-more');
 
-nextPageRef.addEventListener('click', () => {
-  galleryPagination.nextPage();
+let searchReq = '';
+let galleryPage = 1;
+
+loadMoreRef.addEventListener('click', () => {
+  galleryPage += 1;
+  fetchImages(searchReq, galleryPage)
+    .then(({ data }) => {
+      renderGallery(data.hits);
+      console.log(data.hits);
+      const totalPages = Math.ceil(data.totalHits / data.hits.length);
+      console.log(totalPages);
+      if (galleryPage >= totalPages) {
+        loadMoreRef.classList.add('visualy-hidden');
+        Notiflix.Notify.warning("We're sorry, but you've reached the end of search results.");
+      }
+    })
+    .catch(error => {
+      console.log(error);
+    });
 });
 
 formRef.addEventListener('submit', handleSubmit);
 
 const renderGallery = images => {
-  //   const { webformatURL, largeImageURL, tags, likes, views, comments, downloads } = data;
-  if (images.length === 0) {
-    galleryRef.innerHTML = '';
-    Notiflix.Notify.failure('There is no images found with that search request');
-  }
-  const markupGallery = images
-
-    .map(image => {
-      const markup = `
-        <a class="gallery-link" href="${image.largeImageURL}">
-          <div class="photo-card">
-            <img class="photo-card-image" src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
-            <div class="info">
-              <p class="info-item"><b>Likes</b>${image.likes}</p>
-              <p class="info-item"><b>Views</b>${image.views}</p>
-              <p class="info-item"><b>Comments</b>${image.comments}</p>
-              <p class="info-item"><b>Downloads</b>${image.downloads}</p>
-            </div>
-          </div>
-        </a>
-      `;
-      return markup;
-    })
-    .join('');
-
-  galleryRef.insertAdjacentHTML('beforeend', markupGallery);
+  const imagesList = images.map(image => {
+    const { largeImageURL, webformatURL, tags, likes, views, comments, downloads } = image;
+    return { largeImageURL, webformatURL, tags, likes, views, comments, downloads };
+  });
+  galleryRef.insertAdjacentHTML('beforeend', imageCardTemplate(imagesList));
+  // galleryRef.innerHTML = imageCardTemplate(imagesList);
+  new SimpleLightbox('.gallery a').refresh();
 };
 
 function handleSubmit(event) {
   event.preventDefault();
-  const searchReq = event.currentTarget.searchQuery.value.trim();
+  galleryPage = 1;
+  searchReq = event.currentTarget.searchQuery.value.trim();
 
-  //   if (searchReq === '') {
-  //     return Notiflix.Notify.info('Enter search request plese!');
-  //   }
+  if (searchReq === '') {
+    return Notiflix.Notify.info('Enter search request plese!');
+  }
 
-  console.log(`Search request: ${searchReq}`);
+  galleryRef.innerHTML = '';
+  loadMoreRef.classList.add('visualy-hidden');
 
-  fetchImages(searchReq)
+  fetchImages(searchReq, galleryPage)
     .then(({ data }) => {
-      //   console.log(data);
       renderGallery(data.hits);
+      console.log(data.hits);
+      if (data.hits.length === 0) {
+        galleryRef.innerHTML = '';
+        return Notiflix.Notify.failure('There is no images found with that search request');
+      }
+      Notiflix.Notify.success(`'Hooray! We found ${data.totalHits} images.'`);
+      loadMoreRef.classList.remove('visualy-hidden');
     })
     .catch(error => {
-      if (error.status === 404) Notiflix.Notify.failure('Oops, there is no country with that name');
       console.log(error);
     });
 }
