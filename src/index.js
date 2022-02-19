@@ -11,15 +11,16 @@ const loadMoreRef = document.querySelector('.load-more');
 
 let searchReq = '';
 let galleryPage = 1;
+const perPage = 40;
+
+formRef.addEventListener('submit', handleSubmit);
 
 loadMoreRef.addEventListener('click', () => {
   galleryPage += 1;
   fetchImages(searchReq, galleryPage)
     .then(({ data }) => {
       renderGallery(data.hits);
-      console.log(data.hits);
-      const totalPages = Math.ceil(data.totalHits / data.hits.length);
-      console.log(totalPages);
+      const totalPages = Math.ceil(data.totalHits / perPage);
       if (galleryPage >= totalPages) {
         loadMoreRef.classList.add('visualy-hidden');
         Notiflix.Notify.warning("We're sorry, but you've reached the end of search results.");
@@ -29,8 +30,6 @@ loadMoreRef.addEventListener('click', () => {
       console.log(error);
     });
 });
-
-formRef.addEventListener('submit', handleSubmit);
 
 const renderGallery = images => {
   const imagesList = images.map(image => {
