@@ -1,6 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: 'smooth';
+}
+
 body {
-  margin: 2rem;
+  padding: 30px;
   background: #e0f2f1;
+  font-family: 'Heebo', sans-serif;
+}
+
+a {
+  text-decoration: none;
 }
 
 .visualy-hidden {

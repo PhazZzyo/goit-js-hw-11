@@ -1,7 +1,5 @@
 .section-gallery {
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-bottom: 25px;
+  margin: 0 auto;
 
   @media screen and (min-width: 480px) {
     width: 480px;
@@ -18,17 +16,20 @@
   }
 
   @media screen and (min-width: 1200px) {
-    width: 1200px;
+    width: 100%;
+    max-width: 1360px;
   }
 }
 
 .gallery,
 .stats {
+  margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
 }
 
 .gallery {
+  width: 100%;
   margin-left: -20px;
   padding-top: 60px;
   justify-content: center;
@@ -39,7 +40,7 @@
   margin-left: 20px;
   min-width: 320px;
   flex-basis: calc((100% - 80px) / 4);
-  border: 1px solid #4db6ac;
+  border: 2px solid #4db6ac;
   border-radius: 10px;
   overflow: hidden;
   transition: all 0.3s;
@@ -73,6 +74,7 @@
   flex-direction: column;
   align-items: center;
   color: black;
+  font-size: 14px;
 }
 
 .stats-item:not(:first-child) {
@@ -93,7 +95,7 @@
   transition: 0.2s;
   background: #455a64;
   color: white;
-  font-size: 13px;
+  font-size: 14px;
   width: auto;
   height: 100%;
 }
