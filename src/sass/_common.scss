@@ -5,13 +5,32 @@
 }
 
 html {
-  scroll-behavior: 'smooth';
+  scroll-behavior: smooth;
 }
 
 body {
-  padding: 30px;
+  padding: 20px;
   background: #e0f2f1;
   font-family: 'Heebo', sans-serif;
+
+  @media screen and (min-width: 480px) {
+    width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 768px;
+  }
+
+  @media screen and (min-width: 992px) {
+    width: 992px;
+  }
+
+  @media screen and (min-width: 1200px) {
+    width: 100%;
+    max-width: 1460px;
+  }
 }
 
 a {

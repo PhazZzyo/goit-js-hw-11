@@ -1,24 +1,5 @@
 .section-gallery {
-  margin: 0 auto;
-
-  @media screen and (min-width: 480px) {
-    width: 480px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  @media screen and (min-width: 768px) {
-    width: 768px;
-  }
-
-  @media screen and (min-width: 992px) {
-    width: 992px;
-  }
-
-  @media screen and (min-width: 1200px) {
-    width: 100%;
-    max-width: 1360px;
-  }
+  padding-top: 30px;
 }
 
 .gallery,
@@ -30,9 +11,10 @@
 
 .gallery {
   width: 100%;
-  margin-left: -20px;
-  padding-top: 60px;
   justify-content: center;
+  @media screen and (min-width: 1417px) {
+    margin-left: -10px;
+  }
 }
 
 .gallery-link {
@@ -104,4 +86,27 @@
 .load-more:hover {
   outline: 0;
   background: #6d90a0;
+}
+
+// .scrollToTop {
+// }
+
+#scrollTop {
+  display: none; /* Hidden by default */
+  position: fixed; /* Fixed/sticky position */
+  bottom: 20px; /* Place the button at the bottom of the page */
+  right: 30px; /* Place the button 30px from the right */
+  z-index: 99; /* Make sure it does not overlap */
+  border: none; /* Remove borders */
+  outline: none; /* Remove outline */
+  background-color: red; /* Set a background color */
+  color: white; /* Text color */
+  cursor: pointer; /* Add a mouse pointer on hover */
+  padding: 15px; /* Some padding */
+  border-radius: 10px; /* Rounded corners */
+  font-size: 18px; /* Increase font size */
+}
+
+#scrollTop:hover {
+  background-color: #555; /* Add a dark-grey background on hover */
 }

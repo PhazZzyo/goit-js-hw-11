@@ -1,14 +1,21 @@
 .form-section {
-  padding: 30px;
+  margin: 0 auto;
+}
+
+.search-form_container {
+  display: flex;
   background: #4db6ac;
   border-radius: 8px;
+  height: 100px;
+  min-width: 320px;
+  align-items: center;
+  justify-content: center;
 }
 
 .search-form {
   --searchButtonWidth: 75px;
-
+  display: flex;
   max-width: 320px;
-  margin: 0 auto;
   overflow: hidden;
   position: relative;
 }
@@ -19,6 +26,7 @@
   padding: 0.5rem calc(var(--searchButtonWidth) + 0.5rem) 0.5rem 0.5rem;
   border-radius: 8px;
   width: 100%;
+  min-width: 300px;
   background: #b2dfdb;
   -webkit-appearance: none;
   font-size: 14px;
