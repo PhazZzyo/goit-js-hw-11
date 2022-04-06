@@ -37,7 +37,6 @@ const renderGallery = images => {
     return { largeImageURL, webformatURL, tags, likes, views, comments, downloads };
   });
   galleryRef.insertAdjacentHTML('beforeend', imageCardTemplate(imagesList));
-  // galleryRef.innerHTML = imageCardTemplate(imagesList);
   new SimpleLightbox('.gallery a').refresh();
 };
 
